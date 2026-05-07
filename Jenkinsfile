@@ -13,8 +13,8 @@ def deployService(envName, port) {
     bat 'git clone https://github.com/mtararujs/python-greetings python-greetings'
     bat 'cd python-greetings && python -m venv venv'
     bat 'cd python-greetings && venv\\Scripts\\python -m pip install -r requirements.txt'
-    bat "cd python-greetings && C:\Users\Gatis\AppData\Roaming\npm\pm2.cmd delete greetings-app-${envName}  & set \"errorlevel=0\""
-    bat "cd python-greetings && set PORT=${port} && C:\Users\Gatis\AppData\Roaming\npm\pm2.cmd start app.py --name greetings-app-${envName} --interpreter \"%CD%\\venv\\Scripts\\python.exe\""
+    bat "cd python-greetings && C:\\Users\Gatis\\AppData\\Roaming\\npm\\pm2.cmd delete greetings-app-${envName}  & set \"errorlevel=0\""
+    bat "cd python-greetings && set PORT=${port} && C:\\Users\\Gatis\\AppData\\Roaming\\npm\\pm2.cmd start app.py --name greetings-app-${envName} --interpreter \"%CD%\\venv\\Scripts\\python.exe\""
 }
 
 def testService(envName) {

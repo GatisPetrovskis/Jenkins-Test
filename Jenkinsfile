@@ -8,13 +8,15 @@ def installPythonDeps() {
 }
 
 def deployService(envName, port) {
+    def appDir = "python-greetings-${envName}"
+
     bat "echo Deploying to ${envName}..."
-    bat 'if exist python-greetings rmdir /s /q python-greetings'
-    bat 'git clone https://github.com/mtararujs/python-greetings python-greetings'
-    bat 'cd python-greetings && python -m venv venv'
-    bat 'cd python-greetings && venv\\Scripts\\python -m pip install -r requirements.txt'
-    bat "cd python-greetings && C:\\Users\\Gatis\\AppData\\Roaming\\npm\\pm2.cmd delete greetings-app-${envName} || exit /b 0"
-    bat "cd python-greetings && set PORT=${port} && C:\\Users\\Gatis\\AppData\\Roaming\\npm\\pm2.cmd start app.py --name greetings-app-${envName} --interpreter \"%WORKSPACE%\\python-greetings\\venv\\Scripts\\python.exe\""
+    bat "if exist ${appDir} rmdir /s /q ${appDir}"
+    bat "git clone https://github.com/mtararujs/python-greetings ${appDir}"
+    bat "cd ${appDir} && python -m venv venv"
+    bat "cd ${appDir} && venv\\Scripts\\python -m pip install -r requirements.txt"
+    bat "cd ${appDir} && C:\\Users\\Gatis\\AppData\\Roaming\\npm\\pm2.cmd delete greetings-app-${envName} || exit /b 0"
+    bat "cd ${appDir} && set PORT=${port} && C:\\Users\\Gatis\\AppData\\Roaming\\npm\\pm2.cmd start app.py --name greetings-app-${envName} --interpreter \"%WORKSPACE%\\${appDir}\\venv\\Scripts\\python.exe\""
 }
 
 def testService(envName) {
